@@ -594,7 +594,10 @@ export class Context {
                     remap(src_pt.y, dy,dy+dh, sy,sy+sh)
                 )
                 if(src_bounds.contains(src_pt)) {
-                    const rgba = bitmap.getPixelRGBA(src_pt.x, src_pt.y)
+                    // const rgba = bitmap.getPixelRGBA(src_pt.x, src_pt.y)
+                    const fgRGBA = bitmap.getPixelRGBA_bilinear(src_pt.x, src_pt.y)
+                    const bgRGBA = this.bitmap.getPixelRGBA_bilinear(dst_pt.x, dst_pt.y)
+                    const rgba = this.composite(0, 0, bgRGBA, fgRGBA);
                     this.bitmap.setPixelRGBA(dst_pt.x, dst_pt.y, rgba)
                 }
             }
